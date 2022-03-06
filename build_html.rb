@@ -60,6 +60,8 @@ CSV.foreach('./quinnypig_raw.csv', headers: true) do |tweet_line|
       local_media_filepath = @cache.local_media(media)
       tweet_info[:media] << local_media_filepath.gsub('./out/','')
     end
+    # Remove the t.co link to this media.
+    text.sub!(%r{https://t.co/\w+}, '')
   end
   tweets << tweet_info
 end
