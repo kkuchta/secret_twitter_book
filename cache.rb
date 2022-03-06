@@ -21,9 +21,16 @@ class Cache
   def tweet(id)
     # Because we're deep_symbolizing all keys, gotta have a symbol id.
     id = id.to_sym
-    if @_data[:tweets][id]
+    # if @_data[:tweets][id]
+    if @_data[:tweets].key?(id)
       begin
-        Twitter::Tweet.new(@_data[:tweets][id])
+        if @_data[:tweets][id]
+          Twitter::Tweet.new(@_data[:tweets][id])
+        else
+          # If the key is present, but nil, then it must have been missing last
+          # time and we cached that fact.
+          @_data[:tweets][id]
+        end
       rescue
         binding.pry
       end
