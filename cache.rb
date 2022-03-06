@@ -27,7 +27,6 @@ class Cache
       rescue
         binding.pry
       end
-      puts 'here'
     else
       puts "Fetching tweet from api"
       begin

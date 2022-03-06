@@ -48,6 +48,7 @@ CSV.foreach('./quinnypig_raw.csv', headers: true) do |tweet_line|
   text = tweet_line['text']
   id = tweet_line['tweet_id']
   unless tweet = @cache.tweet(id)
+    puts "Skipping tweet"
     next
   end
   tweet_info = {
