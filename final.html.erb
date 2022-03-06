@@ -1,0 +1,12 @@
+<html>
+  <body>
+    <% tweets.each do |tweet| %>
+      <p>
+        <%= tweet[:text] %>
+        <% tweet[:media].each do |media_path| %>
+          <img src='<%= media_path %>' />
+        <% end %>
+      </p>
+    <% end %>
+  </body>
+</html>

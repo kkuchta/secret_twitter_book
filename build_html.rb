@@ -38,20 +38,31 @@ end
 
 puts "done"
 i = 0
+tweets = []
 CSV.foreach('./quinnypig_raw.csv', headers: true) do |tweet_line|
-  if i > 10
+  if i > 100
     break
   end
   i+=1
 
   text = tweet_line['text']
   id = tweet_line['tweet_id']
-  tweet = @cache.tweet(id)
+  unless tweet = @cache.tweet(id)
+    next
+  end
+  tweet_info = {
+    text: text,
+    media: []
+  }
   if tweet.media?
     tweet.media.each do |media|
-      local_media = @cache.local_media(media)
+      local_media_filepath = @cache.local_media(media)
+      tweet_info[:media] << local_media_filepath.gsub('./out/','')
     end
   end
-  # This tweet includes media
-  puts 'here'
+  tweets << tweet_info
 end
+
+erb = ERB.new(File.read('final.html.erb'))
+result = erb.result_with_hash({tweets: tweets})
+File.write('./out/final.html', result)

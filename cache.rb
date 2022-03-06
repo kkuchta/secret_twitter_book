@@ -22,11 +22,20 @@ class Cache
     # Because we're deep_symbolizing all keys, gotta have a symbol id.
     id = id.to_sym
     if @_data[:tweets][id]
-      Twitter::Tweet.new(@_data[:tweets][id])
+      begin
+        Twitter::Tweet.new(@_data[:tweets][id])
+      rescue
+        binding.pry
+      end
+      puts 'here'
     else
       puts "Fetching tweet from api"
-      tweet = @client.status(id.to_s)
-      @_data[:tweets][id] = tweet.to_h
+      begin
+        tweet = @client.status(id.to_s)
+      rescue Twitter::Error::NotFound => e
+        puts "Twitter::Error::NotFound for #{id}"
+      end
+      @_data[:tweets][id] = tweet&.to_h
       save_cache
       tweet
     end
@@ -40,13 +49,13 @@ class Cache
       # Don't care
     end
     if File.exist?(local_filepath)
-      # TODO
       puts 'local media already downloaded'
     else
       puts "Downloading media #{media.id}"
       download = URI.open(media.media_url.to_s)
       IO.copy_stream(download, local_filepath)
     end
+    local_filepath
   end
 
   def save_cache
