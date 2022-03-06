@@ -5,7 +5,6 @@ require 'twitter'
 require 'dotenv/load'
 require './cache'
 
-CACHE_FILEPATH='./out/cache.json'
 
 puts "Starting building html"
 # puts ENV['TWITTER_API_SECRET']
@@ -20,7 +19,7 @@ client = Twitter::REST::Client.new do |config|
 end
 # tweet = client.status(1371960341421125632)
 # binding.pry
-@cache = Cache.new(CACHE_FILEPATH, client)
+@cache = Cache.new(client)
   # if File.exist?(CACHE_FILEPATH)
   #   JSON.parse(File.read(CACHE_FILEPATH))
   # else
@@ -33,9 +32,9 @@ end
 #   puts 'here'
 # end
 
-@cache.tweet('1371960341421125632')
-# get_tweet_or_cache('1371960341421125632')
-exit
+# @cache.tweet('1371960341421125632')
+# # get_tweet_or_cache('1371960341421125632')
+# exit
 
 puts "done"
 i = 0
@@ -48,6 +47,11 @@ CSV.foreach('./quinnypig_raw.csv', headers: true) do |tweet_line|
   text = tweet_line['text']
   id = tweet_line['tweet_id']
   tweet = @cache.tweet(id)
+  if tweet.media?
+    tweet.media.each do |media|
+      local_media = @cache.local_media(media)
+    end
+  end
   # This tweet includes media
-  puts 'hereh'
+  puts 'here'
 end

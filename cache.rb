@@ -1,14 +1,18 @@
 require 'active_support'
 require 'active_support/core_ext'
+require 'open-uri'
+
+CACHE_FOLDER='./out'
+CACHE_FILEPATH = CACHE_FOLDER + '/cache.json'
 
 # A simple json cache in the filesystem
 class Cache
-  def initialize(path, client)
-    @path = path
+  def initialize(client)
+    @path = CACHE_FILEPATH
     @client = client
-    @_data = if File.exist?(path)
+    @_data = if File.exist?(@path)
       # Symbolize because that's how the twitter lib expects it.
-      JSON.parse(File.read(path)).deep_symbolize_keys
+      JSON.parse(File.read(@path)).deep_symbolize_keys
     else
       {tweets:{}, media: {}}
     end
@@ -25,6 +29,23 @@ class Cache
       @_data[:tweets][id] = tweet.to_h
       save_cache
       tweet
+    end
+  end
+
+  def local_media(media)
+    local_filepath = CACHE_FOLDER + '/media/' + media.id.to_s
+    begin
+      FileUtils.mkdir './out/media'
+    rescue Errno::EEXIST
+      # Don't care
+    end
+    if File.exist?(local_filepath)
+      # TODO
+      puts 'local media already downloaded'
+    else
+      puts "Downloading media #{media.id}"
+      download = URI.open(media.media_url.to_s)
+      IO.copy_stream(download, local_filepath)
     end
   end
 
