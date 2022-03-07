@@ -1,3 +1,18 @@
-body {
-  color: red;
+.tweet {
+  /* border-top: 1px solid black; */
+  margin-top: 24px;
+}
+.images {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(33%, 1fr));
+  gap: 8px;
+  margin: 12px 24px;
+}
+.image-container {
+  display: flex;
+  justify-content: center;
+}
+.image {
+  max-width: 100%;
+  max-height: 400px;
 }

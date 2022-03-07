@@ -4,12 +4,19 @@
   </head>
   <body>
     <% tweets.each do |tweet| %>
-      <p>
-        <%= tweet[:text] %>
-        <% tweet[:media].each do |media_path| %>
-          <img src='<%= media_path %>' />
-        <% end %>
-      </p>
+      <div class='tweet'>
+        <div class='text'>
+        <%= tweet[:id] %>:
+        <%= tweet[:created_at].strftime('%-m/%-d/%y') %> - <%= tweet[:text] %>
+        </div>
+        <div class='images'>
+          <% tweet[:media].each do |media_path| %>
+            <div class='image-container'>
+              <img class='image' src='<%= media_path %>' />
+            </div>
+          <% end %>
+        </div>
+      </div>
     <% end %>
   </body>
 </html>

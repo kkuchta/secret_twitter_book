@@ -36,11 +36,7 @@ class Cache
       end
     else
       puts "Fetching tweet from api"
-      begin
-        tweet = @client.status(id.to_s)
-      rescue Twitter::Error::NotFound => e
-        puts "Twitter::Error::NotFound for #{id}"
-      end
+      tweet = fetch_tweet(id)
       @_data[:tweets][id] = tweet&.to_h
       save_cache
       tweet
@@ -58,13 +54,50 @@ class Cache
       puts 'local media already downloaded'
     else
       puts "Downloading media #{media.id}"
-      download = URI.open(media.media_url.to_s)
-      IO.copy_stream(download, local_filepath)
+      3.times do
+        begin
+          download = URI.open(media.media_url.to_s)
+          IO.copy_stream(download, local_filepath)
+          break
+        rescue OpenURI::HTTPError => e
+          puts "image dl: Got an http error: #{e.full_message}, retrying in 10s"
+          sleep 10
+        end
+      end
     end
     local_filepath
   end
 
   def save_cache
-    File.write(@path, @_data.to_json)
+    @save_in ||= 0
+    if @save_in == 0
+      puts "saving cache"
+      File.write(@path, @_data.to_json)
+      @save_in = 100
+    end
+    @save_in -= 1
+  end
+
+  private
+
+  def fetch_tweet(id)
+    begin
+      loop do
+        begin
+          return @client.status(id.to_s)
+        rescue Twitter::Error::TooManyRequests => e
+          puts "Got a rate limit error, retrying in a few minutes"
+          sleep 30 * 5
+        rescue OpenURI::HTTPError => e
+          puts "Got an http error: #{e.full_message}, retrying in 10s"
+          sleep 10
+        end
+      end
+    rescue Twitter::Error::Forbidden => e
+      puts "Twitter::Error::Forbidden for #{id}"
+    rescue Twitter::Error::NotFound => e
+      puts "Twitter::Error::NotFound for #{id}"
+    end
+    return nil
   end
 end

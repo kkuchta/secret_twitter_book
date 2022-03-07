@@ -18,53 +18,55 @@ client = Twitter::REST::Client.new do |config|
   config.access_token_secret = ENV['client.status(1371960341421125632)T']
 end
 # tweet = client.status(1371960341421125632)
-# binding.pry
 @cache = Cache.new(client)
-  # if File.exist?(CACHE_FILEPATH)
-  #   JSON.parse(File.read(CACHE_FILEPATH))
-  # else
-  #   {'tweets':{}, 'media': {}}
-  # end
-# def get_tweet_or_cache(id)
-#   if tweet = @cache['tweets'][id]
-#   id = id.to_s
-#   binding.pry
-#   puts 'here'
-# end
-
-# @cache.tweet('1371960341421125632')
-# # get_tweet_or_cache('1371960341421125632')
-# exit
 
 puts "done"
 i = 0
 tweets = []
 CSV.foreach('./quinnypig_raw.csv', headers: true) do |tweet_line|
-  if i > 100
-    break
-  end
-  i+=1
-
-  text = tweet_line['text']
-  id = tweet_line['tweet_id']
-  unless tweet = @cache.tweet(id)
-    puts "Skipping tweet"
-    next
-  end
-  tweet_info = {
-    text: text,
-    media: []
-  }
-  if tweet.media?
-    tweet.media.each do |media|
-      local_media_filepath = @cache.local_media(media)
-      tweet_info[:media] << local_media_filepath.gsub('./out/','')
+  begin
+    if i > 10000
+      break
     end
-    # Remove the t.co link to this media.
-    text.sub!(%r{https://t.co/\w+}, '')
+    i+=1
+    if i % 10 == 0
+      puts "Fetching #{i}"
+    end
+
+    text = tweet_line['text']
+    id = tweet_line['tweet_id']
+    unless tweet = @cache.tweet(id)
+      puts "Skipping tweet because it's missing"
+      next
+    end
+    if tweet.retweet?
+      puts "Skipping because just a RT"
+      next
+    end
+    # if tweet.quoted_tweet?
+    #   puts "FOUND A QUOTED TWEET #{id}"
+    # end
+    tweet_info = {
+      id: id,
+      text: text,
+      media: [],
+      created_at: tweet.created_at
+    }
+    if tweet.media?
+      tweet.media.each do |media|
+        local_media_filepath = @cache.local_media(media)
+        tweet_info[:media] << local_media_filepath.gsub('./out/','')
+      end
+      # Remove the t.co link to this media.
+      text.sub!(%r{https://t.co/\w+}, '')
+    end
+    tweets << tweet_info
+  rescue Exception => e
+    binding.pry
+    puts "Got error for tweet"
   end
-  tweets << tweet_info
 end
+@cache.save_cache
 
 erb = ERB.new(File.read('final.html.erb'))
 result = erb.result_with_hash({tweets: tweets})
