@@ -7,9 +7,8 @@ require './cache'
 
 
 puts "Starting building html"
-# puts ENV['TWITTER_API_SECRET']
-# client = Tweetkit::Client.new(bearer_token: ENV['TWITTER_BEARER_TOKEN'])
-# response = client.tweet(1371960341421125632)
+
+LIMIT = 1000
 
 client = Twitter::REST::Client.new do |config|
   config.consumer_key        = ENV['TWITTER_CONSUMER_KEY']
@@ -25,7 +24,7 @@ i = 0
 tweets = []
 CSV.foreach('./quinnypig_raw.csv', headers: true) do |tweet_line|
   begin
-    if i > 10000
+    if i > LIMIT
       break
     end
     i+=1

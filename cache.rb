@@ -5,6 +5,8 @@ require 'open-uri'
 CACHE_FOLDER='./out'
 CACHE_FILEPATH = CACHE_FOLDER + '/cache.json'
 
+CACHE_EVERY = 100
+
 # A simple json cache in the filesystem
 class Cache
   def initialize(client)
@@ -69,11 +71,14 @@ class Cache
   end
 
   def save_cache
-    @save_in ||= 0
+    @save_in ||= CACHE_EVERY
     if @save_in == 0
+      start = Time.now
       puts "saving cache"
       File.write(@path, @_data.to_json)
-      @save_in = 100
+      finish = Time.now
+      puts "Completed in #{finish - start} seconds"
+      @save_in = CACHE_EVERY
     end
     @save_in -= 1
   end
