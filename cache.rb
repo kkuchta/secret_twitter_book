@@ -5,7 +5,7 @@ require 'open-uri'
 CACHE_FOLDER='./out'
 CACHE_FILEPATH = CACHE_FOLDER + '/cache.json'
 
-CACHE_EVERY = 100
+CACHE_EVERY = 1000
 
 # A simple json cache in the filesystem
 class Cache
