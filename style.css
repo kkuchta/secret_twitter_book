@@ -1,5 +1,6 @@
 body {
   filter: grayscale(100%);
+  font-family: palatino Impact;
 }
 .tweet {
   /* border-top: 1px solid black; */

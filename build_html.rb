@@ -34,6 +34,11 @@ CSV.foreach('./quinnypig_raw.csv', headers: true) do |tweet_line|
 
     text = tweet_line['text']
     id = tweet_line['tweet_id']
+    screen_name = tweet_line['screen_name']
+    if screen_name != 'QuinnyPig'
+      puts "Skipping tweet by #{screen_name}"
+      next
+    end
     unless tweet = @cache.tweet(id)
       puts "Skipping tweet because it's missing"
       next
@@ -60,7 +65,7 @@ CSV.foreach('./quinnypig_raw.csv', headers: true) do |tweet_line|
       text.sub!(%r{https://t.co/\w+}, '')
     end
     tweets << tweet_info
-  rescue Exception => e
+  rescue StandardError => e
     binding.pry
     puts "Got error for tweet"
   end
