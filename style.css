@@ -1,6 +1,7 @@
 .tweet {
   /* border-top: 1px solid black; */
   margin-top: 24px;
+  page-break-inside: avoid;
 }
 .images {
   display: grid;
@@ -15,6 +16,7 @@
 .image {
   max-width: 100%;
   max-height: 400px;
+  object-fit: contain;
 }
 
 @media print {
