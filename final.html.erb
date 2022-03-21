@@ -3,22 +3,27 @@
     <link rel="stylesheet" href="./style.css" type='text/css' />
   </head>
   <body>
-    <% tweets.each do |tweet| %>
-      <div class='tweet'>
-        <div class='text'>
-        <!-- <%= tweet[:id] %>: -->
-        <%= tweet[:created_at].strftime('%-m/%-d/%y') %> - <%= tweet[:text] %>
-        </div>
-        <% if tweet[:media].any? %>
-          <div class='images'>
-            <% tweet[:media].each do |media_path| %>
-              <div class='image-container'>
-                <img class='image' src='<%= media_path %>' />
-              </div>
-            <% end %>
-          </div>
-        <% end %>
+    <% year_months.each do |tweets| %>
+      <div>
+        <h1><%= tweets.first[:created_at].strftime('%y %m') %></h1>
       </div>
+      <% tweets.sort_by{ |t| t[:created_at] }.each do |tweet| %>
+        <div class='tweet'>
+          <div class='text'>
+          <!-- <%= tweet[:id] %>: -->
+          <%= tweet[:created_at].strftime('%-m/%-d/%y') %> - <%= tweet[:text] %>
+          </div>
+          <% if tweet[:media].any? %>
+            <div class='images'>
+              <% tweet[:media].each do |media_path| %>
+                <div class='image-container'>
+                  <img class='image' src='<%= media_path %>' />
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
   </body>
 </html>

@@ -8,7 +8,7 @@ require './cache'
 
 puts "Starting building html"
 
-LIMIT = 1000
+LIMIT = 10000
 
 client = Twitter::REST::Client.new do |config|
   config.consumer_key        = ENV['TWITTER_CONSUMER_KEY']
@@ -72,6 +72,11 @@ CSV.foreach('./quinnypig_raw.csv', headers: true) do |tweet_line|
 end
 @cache.save_cache
 
+# Tweets grouped by month and year
+year_months = tweets.group_by do |tweet|
+  tweet[:created_at].strftime('%y %m')
+end.to_a.sort_by(&:first).map(&:second)
+
 erb = ERB.new(File.read('final.html.erb'))
-result = erb.result_with_hash({tweets: tweets})
+result = erb.result_with_hash({year_months: year_months})
 File.write('./out/final.html', result)
