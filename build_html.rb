@@ -8,7 +8,7 @@ require './cache'
 
 puts "Starting building html"
 
-LIMIT = 100000
+LIMIT = 1000
 
 client = Twitter::REST::Client.new do |config|
   config.consumer_key        = ENV['TWITTER_CONSUMER_KEY']
