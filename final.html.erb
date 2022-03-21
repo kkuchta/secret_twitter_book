@@ -6,16 +6,18 @@
     <% tweets.each do |tweet| %>
       <div class='tweet'>
         <div class='text'>
-        <%= tweet[:id] %>:
+        <!-- <%= tweet[:id] %>: -->
         <%= tweet[:created_at].strftime('%-m/%-d/%y') %> - <%= tweet[:text] %>
         </div>
-        <div class='images'>
-          <% tweet[:media].each do |media_path| %>
-            <div class='image-container'>
-              <img class='image' src='<%= media_path %>' />
-            </div>
-          <% end %>
-        </div>
+        <% if tweet[:media].any? %>
+          <div class='images'>
+            <% tweet[:media].each do |media_path| %>
+              <div class='image-container'>
+                <img class='image' src='<%= media_path %>' />
+              </div>
+            <% end %>
+          </div>
+        <% end %>
       </div>
     <% end %>
   </body>

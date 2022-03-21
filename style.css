@@ -1,17 +1,18 @@
 body {
   filter: grayscale(100%);
   font-family: palatino Impact;
+  font-size: 11px;
 }
 .tweet {
   /* border-top: 1px solid black; */
-  margin-top: 24px;
+  margin-top: 4px;
   page-break-inside: avoid;
 }
 .images {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(33%, 1fr));
   gap: 8px;
-  margin: 12px 24px;
+  margin: 8px 24px 12px 24px;
 }
 .image-container {
   display: flex;
