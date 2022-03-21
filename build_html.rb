@@ -8,13 +8,13 @@ require './cache'
 
 puts "Starting building html"
 
-LIMIT = 1000
+LIMIT = 100000
 
 client = Twitter::REST::Client.new do |config|
   config.consumer_key        = ENV['TWITTER_CONSUMER_KEY']
   config.consumer_secret     = ENV['TWITTER_CONSUMER_SECRET']
   config.access_token        = ENV['TWITTER_ACCESS_TOKEN']
-  config.access_token_secret = ENV['client.status(1371960341421125632)T']
+  config.access_token_secret = ENV['TWITTER_ACCESS_SECRET']
 end
 # tweet = client.status(1371960341421125632)
 @cache = Cache.new(client)
