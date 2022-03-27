@@ -8,7 +8,8 @@ require './cache'
 
 puts "Starting building html"
 
-LIMIT = 10000
+# LIMIT = 10000
+LIMIT = 100000
 
 client = Twitter::REST::Client.new do |config|
   config.consumer_key        = ENV['TWITTER_CONSUMER_KEY']
@@ -25,6 +26,7 @@ tweets = []
 CSV.foreach('./quinnypig_raw.csv', headers: true) do |tweet_line|
   begin
     if i > LIMIT
+      puts "hit limit"
       break
     end
     i+=1
@@ -70,7 +72,8 @@ CSV.foreach('./quinnypig_raw.csv', headers: true) do |tweet_line|
     puts "Got error for tweet"
   end
 end
-@cache.save_cache
+puts "Loop ended, I guess?"
+@cache.save_cache(true)
 
 # Tweets grouped by month and year
 year_months = tweets.group_by do |tweet|

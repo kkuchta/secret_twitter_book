@@ -70,9 +70,9 @@ class Cache
     local_filepath
   end
 
-  def save_cache
+  def save_cache(force=false)
     @save_in ||= CACHE_EVERY
-    if @save_in == 0
+    if @save_in == 0 || force
       start = Time.now
       puts "saving cache"
       File.write(@path, @_data.to_json)
