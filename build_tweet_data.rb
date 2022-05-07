@@ -5,11 +5,12 @@ require 'twitter'
 require 'dotenv/load'
 require './cache'
 
+TWEET_DATA_PATH = './out/tweet_data.json'
 
-puts "Starting building html"
+puts "Starting building tweet_data"
 
 # LIMIT = 10000
-LIMIT = 100000
+LIMIT = 1000000
 
 client = Twitter::REST::Client.new do |config|
   config.consumer_key        = ENV['TWITTER_CONSUMER_KEY']
@@ -75,11 +76,12 @@ end
 puts "Loop ended, I guess?"
 @cache.save_cache(true)
 
+File.write(TWEET_DATA_PATH, tweets.to_json)
 # Tweets grouped by month and year
-year_months = tweets.group_by do |tweet|
-  tweet[:created_at].strftime('%y %m')
-end.to_a.sort_by(&:first).map(&:second)
+# year_months = tweets.group_by do |tweet|
+#   tweet[:created_at].strftime('%y %m')
+# end.to_a.sort_by(&:first).map(&:second)
 
-erb = ERB.new(File.read('final.html.erb'))
-result = erb.result_with_hash({year_months: year_months})
-File.write('./out/final.html', result)
+# erb = ERB.new(File.read('final.html.erb'))
+# result = erb.result_with_hash({year_months: year_months})
+# File.write('./out/final.html', result)
