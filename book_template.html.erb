@@ -4,8 +4,8 @@
   </head>
   <body>
     <% year_months.each do |tweets| %>
-      <div>
-        <h1><%= tweets.first[:created_at].strftime('%y %m') %></h1>
+      <div class='chapter-header'>
+        <h1><%= tweets.first[:created_at].strftime('%B of %Y') %></h1>
       </div>
       <% tweets.sort_by{ |t| t[:created_at] }.each do |tweet| %>
         <div class='tweet'>

@@ -4,7 +4,7 @@
 #   BOOK_NUMBER=$i bash ./build_pdf.sh
 # done
 
+echo "Building single-month pdfs"
 find -E out \
   -regex '.*/book_.*\.html' \
   -exec sh build_pdf.sh {} \;
-# ruby build_pdfs.rb

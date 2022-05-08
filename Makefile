@@ -1,4 +1,4 @@
-build: books copy_css build_pdfs
+build: html copy_css month_pdfs book_pdfs
 # 	echo 'done'
 
 tweet_data:
@@ -6,14 +6,17 @@ tweet_data:
 # build_html:
 # 	ruby build_html.rb
 # Depends on tweet_data
-books:
+html:
 	ruby build_books.rb
 
 copy_css:
 	cp style.css out/style.css
 
-pdfs:
+month_pdfs:
 	bash ./build_pdfs.sh
+
+book_pdfs:
+	ruby combine_pdfs.rb
 # build_pdf:
 # 	ulimit -n 65536  && /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \
 # 	--headless \

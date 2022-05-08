@@ -4,6 +4,15 @@ body {
   font-size: 11px;
   margin: 0px;
 }
+.chapter-header {
+  display: flex;
+  justify-content: center;
+}
+h1 {
+  display: flex;
+  text-decoration: underline;
+  text-decoration-color: #AAA;
+}
 .tweet {
   /* border-top: 1px solid black; */
   margin-top: 4px;
@@ -21,7 +30,7 @@ body {
 }
 .image {
   max-width: 100%;
-  max-height: 400px;
+  max-height: 360px;
   object-fit: contain;
 }
 
