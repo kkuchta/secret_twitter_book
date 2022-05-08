@@ -17,6 +17,9 @@ month_pdfs:
 
 book_pdfs:
 	ruby combine_pdfs.rb
+
+watch_css:
+	watchman-make -p style.css -t copy_css
 # build_pdf:
 # 	ulimit -n 65536  && /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \
 # 	--headless \
