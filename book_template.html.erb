@@ -8,21 +8,24 @@
         <h1><%= tweets.first[:created_at].strftime('%B of %Y') %></h1>
       </div>
       <% tweets.sort_by{ |t| t[:created_at] }.each do |tweet| %>
-        <div class='tweet'>
-          <div class='text'>
-          <!-- <%= tweet[:id] %>: -->
+      <% if tweet[:media].count > 1 %>
+        <% puts "found tweet with multiple media in #{tweets.first[:created_at].strftime('%B of %Y')}" %>
+      <% end %>
+        <div class="text <%= tweet[:media].any? ? "with-images" : "" %>">
           <%= tweet[:created_at].strftime('%-m/%-d/%y') %> - <%= tweet[:text] %>
-          </div>
-          <% if tweet[:media].any? %>
-            <div class='images'>
-              <% tweet[:media].each do |media_path| %>
-                <div class='image-container'>
-                  <img class='image' src='<%= media_path %>' />
-                </div>
-              <% end %>
-            </div>
-          <% end %>
         </div>
+        <% if tweet[:media].any? %>
+          <% tweet[:media].each do |media_path| %>
+            <img class='image' src='<%= media_path %>' />
+          <% end %>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+        <% end %>
+        <br />
       <% end %>
     <% end %>
   </body>
