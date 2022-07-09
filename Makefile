@@ -36,3 +36,6 @@ watch_css:
 
 # clean:
 # 	rm -r out/*
+
+compare_tweets:
+	ruby compare_tweets.rb
