@@ -39,3 +39,6 @@ watch_css:
 
 compare_tweets:
 	ruby compare_tweets.rb
+
+normalize_updated_tweets:
+	ruby normalize_updated_tweets.rb
