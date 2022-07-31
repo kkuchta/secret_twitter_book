@@ -1,6 +1,7 @@
 build: html copy_css month_pdfs book_pdfs
 # 	echo 'done'
 
+# Don't include this one by default because it's slow.
 tweet_data:
 	ruby build_tweet_data.rb
 # build_html:

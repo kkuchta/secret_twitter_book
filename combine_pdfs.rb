@@ -15,6 +15,7 @@ pdf_filenames.each do |filename, year, month|
     when 19 then 1
     when 20 then 2
     when 21 then 3
+    when 22 then 4
     else raise "bad year #{year.to_i}"
   end
   groupings[i] ||= []

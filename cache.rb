@@ -96,12 +96,20 @@ class Cache
         rescue OpenURI::HTTPError => e
           puts "Got an http error: #{e.full_message}, retrying in 10s"
           sleep 10
+        rescue HTTP::ConnectionError => e
+          puts "Got an http error: #{e.full_message}, retrying in 10s"
         end
       end
     rescue Twitter::Error::Forbidden => e
       puts "Twitter::Error::Forbidden for #{id}"
     rescue Twitter::Error::NotFound => e
       puts "Twitter::Error::NotFound for #{id}"
+    rescue Twitter::Error::Unauthorized => e
+      if e.message =~ /You have been blocked from the author of this tweet/
+        puts "Twitter::Error::Unauthorized for #{id}"
+      else
+        raise e
+      end
     end
     return nil
   end

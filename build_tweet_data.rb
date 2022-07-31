@@ -18,21 +18,17 @@ client = Twitter::REST::Client.new do |config|
   config.access_token        = ENV['TWITTER_ACCESS_TOKEN']
   config.access_token_secret = ENV['TWITTER_ACCESS_SECRET']
 end
-# tweet = client.status(1371960341421125632)
 @cache = Cache.new(client)
 
-puts "done"
-i = 0
-tweets = []
-CSV.foreach('./quinnypig_raw.csv', headers: true) do |tweet_line|
+def handle_tweet_line(tweet_line)
   begin
-    if i > LIMIT
+    if @i > LIMIT
       puts "hit limit"
-      break
+      return :break
     end
-    i+=1
-    if i % 10 == 0
-      puts "Fetching #{i}"
+    @i+=1
+    if @i % 10 == 0
+      puts "Fetching #{@i}"
     end
 
     text = tweet_line['text']
@@ -40,15 +36,15 @@ CSV.foreach('./quinnypig_raw.csv', headers: true) do |tweet_line|
     screen_name = tweet_line['screen_name']
     if screen_name != 'QuinnyPig'
       puts "Skipping tweet by #{screen_name}"
-      next
+      return :next
     end
     unless tweet = @cache.tweet(id)
       puts "Skipping tweet because it's missing"
-      next
+      return :next
     end
     if tweet.retweet?
       puts "Skipping because just a RT"
-      next
+      return :next
     end
     # if tweet.quoted_tweet?
     #   puts "FOUND A QUOTED TWEET #{id}"
@@ -67,16 +63,38 @@ CSV.foreach('./quinnypig_raw.csv', headers: true) do |tweet_line|
       # Remove the t.co link to this media.
       text.sub!(%r{https://t.co/\w+}, '')
     end
-    tweets << tweet_info
+    @tweets << tweet_info
   rescue StandardError => e
     binding.pry
     puts "Got error for tweet"
   end
 end
+@i = 0
+@tweets = []
+
+CSV.foreach('./quinnypig_raw.csv', headers: true) do |tweet_line|
+  case handle_tweet_line(tweet_line)
+  when :break
+    break
+  when :next
+    next
+  end
+end
+CSV.foreach('./quinnypig_updated_normalized.csv', headers: true) do |tweet_line|
+  case handle_tweet_line(tweet_line)
+  when :break
+    break
+  when :next
+    next
+  end
+end
+
 puts "Loop ended, I guess?"
 @cache.save_cache(true)
 
-File.write(TWEET_DATA_PATH, tweets.to_json)
+@tweets.uniq! { _1[:id]}
+
+File.write(TWEET_DATA_PATH, @tweets.to_json)
 # Tweets grouped by month and year
 # year_months = tweets.group_by do |tweet|
 #   tweet[:created_at].strftime('%y %m')
