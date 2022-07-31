@@ -8,9 +8,10 @@
         <h1><%= tweets.first[:created_at].strftime('%B of %Y') %></h1>
       </div>
       <% tweets.sort_by{ |t| t[:created_at] }.each do |tweet| %>
-      <% if tweet[:media].count > 1 %>
-        <% puts "found tweet with multiple media in #{tweets.first[:created_at].strftime('%B of %Y')}" %>
-      <% end %>
+        <% if tweet[:media].count > 1 %>
+          <% puts "found tweet with multiple media in #{tweets.first[:created_at].strftime('%B of %Y')}" %>
+        <% end %>
+
         <div class="text <%= tweet[:media].any? ? "with-images" : "" %>">
           <%= tweet[:created_at].strftime('%-m/%-d/%y') %> - <%= tweet[:text] %>
         </div>
