@@ -4,6 +4,7 @@
   </head>
   <body>
     <% year_months.each do |tweets| %>
+      <% float = 'left' %>
       <div class='chapter-header'>
         <h1><%= tweets.first[:created_at].strftime('%B of %Y') %></h1>
       </div>
@@ -12,20 +13,23 @@
           <% puts "found tweet with multiple media in #{tweets.first[:created_at].strftime('%B of %Y')}" %>
         <% end %>
 
-        <div class="text <%= tweet[:media].any? ? "with-images" : "" %>">
-          <%= tweet[:created_at].strftime('%-m/%-d/%y') %> - <%= tweet[:text] %>
-        </div>
         <% if tweet[:media].any? %>
-          <% tweet[:media].each do |media_path| %>
-            <img class='image' src='<%= media_path %>' />
-          <% end %>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
+          <div class="tweet-with-image float-<%= float == "left" ? float = "right" : float = "left" %>">
+            <% tweet[:media].each do |media_path| %>
+              <img class='image' src='<%= media_path %>' />
+            <% end %>
+            <div class="text">
+              <span class="date"><%= tweet[:created_at].strftime('%-m/%-d/%y') %></span> - <%= tweet[:text] %>
+            </div>
+          </div>
+        <% else %>
+          <div class="tweet-with-no-image">
+            <div class="text">
+              <span class="date"><%= tweet[:created_at].strftime('%-m/%-d/%y') %></span> - <%= tweet[:text] %>
+            </div>
+          </div>
         <% end %>
+
         <br />
       <% end %>
     <% end %>

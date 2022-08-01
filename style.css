@@ -13,11 +13,6 @@ h1 {
   text-decoration: underline;
   text-decoration-color: #AAA;
 }
-.tweet {
-  /* border-top: 1px solid black; */
-  margin-top: 4px;
-  page-break-inside: avoid;
-}
 .images {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(33%, 1fr));
@@ -32,11 +27,47 @@ h1 {
   max-width: 100%;
   max-height: 360px;
   object-fit: contain;
-  float: right;
-  margin: 8px 48px 12px 24px;
-  border: 1px solid black;
+  /* float: right; */
+  /* margin: 8px 48px 12px 24px; */
+  /* border: 1px solid black; */
   padding: 20px;
+  padding-bottom: 8px;
   border-radius: 2px;
+}
+.tweet-with-image {
+  display: inline-flex;
+  /* float: right; */
+  flex-direction: column;
+  border: 1px solid black;
+  clear: both;
+  margin: 12px;
+  page-break-inside: avoid;
+  max-width: 66%;
+}
+.tweet-with-image .text {
+  text-align: center;
+  padding: 0 8px 8px 8px;
+
+  /* make text wrap instead of expanding box */
+  width: 0;
+  min-width: 100%;
+  box-sizing: border-box;
+}
+.float-left {
+  float: left;
+  margin-left: 0;
+}
+.float-right {
+  float: right;
+  margin-right: 0;
+}
+.tweet-with-no-image {
+  display: inline;
+  page-break-inside: avoid;
+}
+.tweet-with-no-image .text {
+  overflow: hidden;
+  /* display: inline-block; */
 }
 
 @media print {
@@ -51,11 +82,4 @@ h1 {
   /* body {
     margin: 1.6cm;
   } */
-}
-.text {
-  display: inline;
-}
-.text.with-images {
-  clear: both;
-  display: block;
 }
