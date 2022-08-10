@@ -1,4 +1,4 @@
-build: html copy_css month_pdfs book_pdfs
+build: html cover_page_html copy_css month_pdfs book_pdfs
 # 	echo 'done'
 
 # Don't include this one by default because it's slow.
@@ -9,6 +9,9 @@ tweet_data:
 # Depends on tweet_data
 html:
 	ruby build_books.rb
+
+cover_page_html:
+	ruby cover_page_html.rb
 
 copy_css:
 	cp style.css out/style.css
