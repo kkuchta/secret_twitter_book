@@ -23,9 +23,17 @@ pdf_filenames.each do |filename, year, month|
 end
 groupings.each_with_index do |grouping, i|
   output_name = "./out/combined_book_#{i}.pdf"
-  files_string = grouping.map{"./out/#{_1}"}.join(' ')
+
+
+  cover_filenames, back_filenames = Dir.new('./out')
+    .each_child
+    .select {|filename| filename =~ /cover_page_\d_book_#{i}.pdf/ }
+    .partition { |f| f.match('\d')[0].to_i < 1 }
+
+  files_string = [*cover_filenames, *grouping, *back_filenames].map{"./out/#{_1}"}.join(' ')
   puts "Building #{output_name} from #{files_string}"
   `pdfunite #{files_string} #{output_name}`
+  puts ''
 end
 
 puts "done"
