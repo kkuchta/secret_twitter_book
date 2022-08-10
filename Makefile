@@ -1,4 +1,4 @@
-build: html cover_page_html copy_css month_pdfs book_pdfs
+build: html cover_page_html copy_css cover_pdfs month_pdfs book_pdfs
 # 	echo 'done'
 
 # Don't include this one by default because it's slow.
@@ -16,6 +16,8 @@ cover_page_html:
 copy_css:
 	cp style.css out/style.css
 
+cover_pdfs:
+	bash ./build_cover_pdfs.sh
 month_pdfs:
 	bash ./build_pdfs.sh
 
