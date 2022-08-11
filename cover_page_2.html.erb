@@ -2,6 +2,17 @@
   <head>
     <link rel="stylesheet" href="./style.css" type='text/css' />
   </head>
-  book <%= book_index %> cover page 2
-  <%= date_range_string %>
+  
+  <body class='cover2'>
+    <div class='inner'>
+      <div class='title1'>The Complete Works</div>
+      <div class='of'>of</div>
+      <div class='corey'>Corey Quinn</div>
+
+      <div class='volume'>Volume <%= book_roman_numeral.upcase %></div>
+      <div class='range'>Tweets from <%= date_range_string%></div>
+      <div class='unabridged'>Unabridged</div>
+      <div class='including'>Including jokes, puns, insights, insults, and takes both hot and cold</div>
+    </div>
+  </body>
 </html>
