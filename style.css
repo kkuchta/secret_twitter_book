@@ -2,7 +2,8 @@ body {
   filter: grayscale(100%);
   font-family:  palatino;
   font-size: 11px;
-  margin: 0px;
+  /* margin: 0px; */
+  /* margin: 1in; */
 }
 .chapter-header {
   display: flex;
@@ -33,6 +34,7 @@ h1 {
   padding: 20px;
   padding-bottom: 8px;
   border-radius: 2px;
+  max-height: 3.5in;
 }
 .tweet-with-image {
   display: inline-flex;
@@ -42,7 +44,7 @@ h1 {
   clear: both;
   margin: 12px;
   page-break-inside: avoid;
-  max-width: 66%;
+  max-width: 60%;
 }
 .tweet-with-image .text {
   text-align: center;
@@ -66,7 +68,7 @@ h1 {
   page-break-inside: avoid;
 }
 .tweet-with-no-image .text {
-  overflow: hidden;
+  /* overflow: hidden; */
   /* display: inline-block; */
 }
 
@@ -82,4 +84,16 @@ h1 {
   /* body {
     margin: 1.6cm;
   } */
+}
+
+.cover0 {
+  padding-top: 400px;
+  text-align: center;
+}
+.cover0 .title {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+.cover0 .volume {
+  font-size: 24px;
 }
