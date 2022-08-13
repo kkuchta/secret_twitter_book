@@ -28,7 +28,7 @@ groupings.each_with_index do |grouping, i|
   cover_filenames, back_filenames = Dir.new('./out')
     .each_child
     .select {|filename| filename =~ /cover_page_\d_book_#{i}.pdf/ }
-    .partition { |f| f.match('\d')[0].to_i < 1 }
+    .partition { |f| f.match('\d')[0].to_i < 5 }
 
   files_string = [*cover_filenames, *grouping, *back_filenames].map{"./out/#{_1}"}.join(' ')
   puts "Building #{output_name} from #{files_string}"

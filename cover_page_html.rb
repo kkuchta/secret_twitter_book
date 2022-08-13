@@ -44,4 +44,7 @@ book_data.each_with_index do |book_data, book_index|
   render_to_html('cover_page_0.html.erb', book_index, book_data)
   render_to_html('cover_page_1.html.erb', book_index, book_data)
   render_to_html('cover_page_2.html.erb', book_index, book_data)
+  render_to_html('cover_page_3.html.erb', book_index, book_data)
+  render_to_html('cover_page_4.html.erb', book_index, book_data)
+  render_to_html('cover_page_5.html.erb', book_index, book_data)
 end
