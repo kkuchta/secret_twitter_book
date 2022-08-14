@@ -194,14 +194,16 @@ h1 {
   display: flex;
   justify-content: center;
   line-height: 32px;
+  height: 100vh;
+  margin-bottom: 1px;
 }
 .cover4 .inner {
   max-width: 400px;
 }
 
 .cover5 {
-  margin: 0;
   height: 100vh;
+  margin-bottom: 1px;
   display: flex;
   justify-content: center;
   align-content: center;
