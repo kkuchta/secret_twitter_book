@@ -3,34 +3,50 @@
     <link rel="stylesheet" href="./style.css" type='text/css' />
   </head>
   <body>
-    <% year_months.each do |tweets| %>
-      <% float = 'left' %>
-      <div class='chapter-header'>
-        <h1><%= tweets.first[:created_at].strftime('%B of %Y') %></h1>
+    <div class='chapter-header'>
+      <h1><%= tweets.first[:created_at].strftime('%B of %Y') %></h1>
+    </div>
+    <% float = 'left' %>
+    <% tweets_with_images_count = (tweets_with_images.count > 0 ? tweets_with_images.count : 1) %>
+    <% tweet_spacing = [tweets_without_images.count / tweets_with_images_count, 10].max %>
+    <% countdown_to_image_tweet = rand.rand(5...10) %>
+    <% tweets_without_images.sort_by{ |t| t[:created_at] }.each_with_index do |tweet, tweet_index| %>
+      <% countdown_to_image_tweet -= 1 %>
+      <% if countdown_to_image_tweet <= 0 && tweets_with_images.any? && tweet_index < tweets_without_images.length - 15  %>
+        <% countdown_to_image_tweet = rand.rand(tweet_spacing...(tweet_spacing+5)) %>
+        <% image_tweet = tweets_with_images.pop %>
+        <div class="tweet-with-image float-<%= float == "left" ? float = "right" : float = "left" %>">
+          <% image_tweet[:media].each do |media_path| %>
+            <img class='image' src='<%= media_path %>' />
+          <% end %>
+          <div class="text">
+            <span class="date"><%= image_tweet[:created_at].strftime('%-m/%-d/%y') %></span> - <%= image_tweet[:text] %>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="tweet-with-no-image">
+        <div class="text">
+          <span class="date"><%= tweet[:created_at].strftime('%-m/%-d/%y') %></span> - <%= tweet[:text] %>
+        </div>
       </div>
-      <% tweets.sort_by{ |t| t[:created_at] }.each do |tweet| %>
-        <% if tweet[:media].count > 1 %>
+      <br />
+    <% end %>
+    <div class='bottom-tweets'>
+      <% tweets_with_images.each do |image_tweet| %>
+
+        <% if image_tweet[:media].count > 1 %>
           <% puts "found tweet with multiple media in #{tweets.first[:created_at].strftime('%B of %Y')}" %>
         <% end %>
-
-        <% if tweet[:media].any? %>
-          <div class="tweet-with-image float-<%= float == "left" ? float = "right" : float = "left" %>">
-            <% tweet[:media].each do |media_path| %>
-              <img class='image' src='<%= media_path %>' />
-            <% end %>
-            <div class="text">
-              <span class="date"><%= tweet[:created_at].strftime('%-m/%-d/%y') %></span> - <%= tweet[:text] %>
-            </div>
+        <div class="tweet-with-image bottom float-left">
+          <% image_tweet[:media].each do |media_path| %>
+            <img class='image' src='<%= media_path %>' />
+          <% end %>
+          <div class="text">
+            <span class="date"><%= image_tweet[:created_at].strftime('%-m/%-d/%y') %></span> - <%= image_tweet[:text] %>
           </div>
-        <% else %>
-          <div class="tweet-with-no-image">
-            <div class="text">
-              <span class="date"><%= tweet[:created_at].strftime('%-m/%-d/%y') %></span> - <%= tweet[:text] %>
-            </div>
-          </div>
-          <br />
-        <% end %>
+        </div>
       <% end %>
-    <% end %>
+    </div>
   </body>
 </html>

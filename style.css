@@ -8,11 +8,14 @@ body {
 .chapter-header {
   display: flex;
   justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 100px;
 }
 h1 {
   display: flex;
   text-decoration: underline;
-  text-decoration-color: #AAA;
+  text-decoration-color: #777;
+  font-size: 36px;
 }
 .images {
   display: grid;
@@ -62,6 +65,23 @@ h1 {
 .float-right {
   float: right;
   margin-right: 0;
+}
+.bottom-tweets {
+  clear: both;
+  /* display: grid;
+  grid-template-columns: 1fr 1fr; */
+}
+.tweet-with-image.bottom {
+  /* display: flex; */
+  margin-left: 12px;
+  margin-right: 12px;
+  width: calc(50% - 26px);
+  clear: none;
+}
+.bottom-tweet-container {
+  display: flex;
+  justify-content: center;
+  break-inside: avoid;
 }
 .tweet-with-no-image {
   display: inline;
@@ -183,13 +203,13 @@ h1 {
   justify-content: flex-end;
   height: 100vh;
   margin: 0;
-  font-size: 20px;
+  font-size: 12px;
 }
 
 .cover4 {
   padding-top: 300px;
   font-style: italic;
-  font-size: 24px;
+  font-size: 20px;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -203,12 +223,19 @@ h1 {
 
 .cover5 {
   height: 100vh;
-  margin-bottom: 1px;
+  /* margin-bottom: 1px; */
   display: flex;
   justify-content: center;
-  align-content: center;
+  align-items: center;
 }
 .cover5 .initial-image {
-  width: 400px;
   object-fit: contain;
+  border: 10px double #888;
+  border-radius: 24px;
+  padding: 20px;
+  width: 400px;
+  position: relative;
+  top: -100px;
+  /* height: 200px;
+  object-fit: contain; */
 }
