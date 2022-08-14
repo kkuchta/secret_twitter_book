@@ -5,6 +5,6 @@
 # done
 
 echo "Building single-month pdfs"
-find -E out \
+find -s -E out \
   -regex '.*/book_.*\.html' \
   -exec sh build_pdf.sh {} \;
