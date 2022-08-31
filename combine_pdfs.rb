@@ -22,7 +22,7 @@ pdf_filenames.each do |filename, year, month|
   groupings[i] << filename
 end
 groupings.each_with_index do |grouping, i|
-  output_name = "./out/combined_book_#{i}.pdf"
+  output_name = "./out/combined_book_#{i+1}.pdf"
 
 
   cover_filenames, back_filenames = Dir.new('./out')
