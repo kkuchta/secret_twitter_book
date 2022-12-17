@@ -1,8 +1,31 @@
 # The Secret Corey Book Project
 
-...because I'm too lazy to think of a good name.
+...because I'm too lazy to think of a good name.  Anyway, this is the code behind a probably-soon-to-be-revealed gift for Corey Quinn, Cloud Economist and shitposter extrodinaire, from his friends Kevin Kuchta, Helen Edwards, Mike Julian, and his wife Bethany Quinn (who is presumably also his friend).
 
-This is the code behind a probably-soon-to-be-revealed gift for Corey Quinn, Cloud Economist and shitposter extrodinaire. Corey once tweeted:
+The project produced a 5-volume leatherbound set of books containing all of Corey's tweets.  The code here is a mess of ruby, html, css, and some shell scripts mostly focused on turning a massive CSV of those tweets into a printable pdf.  This was a one-time project, so the code it's pretty awful.  If you want to attempt to run it, some notes on that are at the end.  But first, the story!
+
+## Preamble
+It all started when this tweet came across my timeline in 2021:
+
+<img src="https://github.com/kkuchta/secret_twitter_book/blob/main/initial_tweet_image.png" width=400 />
+
+My first thought was "I'll bet I could scrape twitter and figure out how many words he's actually tweeted," followed quickly by "hmm... you know, I could maybe make that into an *actual* book"!  What followed was this project.
+
+## Timeline
+The original plan was for this to be a gift for Corey's 31st birthday, which was coming up.  Mike Julian, a friend and Corey's partner in crime/business, egged me on.
+
+1. Tried to pull all of Corey's historical tweets from the twitter api.  Failed - it won't give you more than a few thousand recent tweets.
+2. Tried scraping twitter's web api.  Failed for reasons I don't recall.
+3. Payed someone $15 on fiverr with access to twitter's corporate premium api to give me an XLS file of all corey's tweets with IDs and contents.
+
+
+My first step was gathering Corey's tweets in a CSV format.  I figured this would be easy, but it turns out twitter has a hard limit on how far back you can fetch tweets via their API (something like a thousand or so tweets, iirc).  I played around with twitter's web api, but ran into blockers there as well.  I looked at a number of options - my main one was enlisting the help of Bethany, Corey's wife, in tricking Corey into downloading his twitter archives.  I ultimately ditched that plan because I did *really* want this to be a surprise gift.
+
+Instead, I engaged a person on Fiverr to get me all of Corey's tweets.  It was only $10-15 as I recall!  I don't quite know how they did it, but my guess was they worked for some company that had a subscription to twitter's premium corporate api that doesn't have the same limits as the normal api.  Anyway, this got me a huge .xls file full of tweet IDs and contents.
+
+At this point I decided that the hard work was done, the project was feasible, and so I enlisted the above friends to go in together on the cost of printing it "as soon as I finish getting the pdfs put together."  Ah, the naivite of youth.
+
+As it turned out, creating the PDFs was 
 
 # Dependencies:
 
