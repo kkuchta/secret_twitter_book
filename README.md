@@ -1,3 +1,9 @@
+# The Secret Corey Book Project
+
+...because I'm too lazy to think of a good name.
+
+This is the code behind a probably-soon-to-be-revealed gift for Corey Quinn, Cloud Economist and shitposter extrodinaire. Corey once tweeted:
+
 # Dependencies:
 
 - `brew install poppler`
