@@ -12,7 +12,7 @@ It all started when this tweet came across my timeline in 2021:
 My first thought was "I'll bet I could scrape twitter and figure out how many words he's actually tweeted," followed quickly by "hmm... you know, I could maybe make that into an *actual* book"!  What followed was this project.
 
 ## Timeline
-The original plan was for this to be a gift for Corey's 31st birthday, which was coming up.  Mike Julian, a friend and Corey's partner in crime/business, egged me on.
+The original plan was for this to be a gift for Corey's 39th birthday, which was coming up.  Mike Julian, a friend and Corey's partner in crime/business, egged me on.
 
 1. Tried to pull all of Corey's historical tweets from the twitter api.  Failed - it won't give you more than a few thousand recent tweets.
 2. Tried scraping twitter's web api.  Failed for reasons I don't recall.
