@@ -1,3 +1,6 @@
+![Flj_418aEAE-t2T](https://user-images.githubusercontent.com/820965/227816051-99b7f23a-6f5e-4e2b-89b2-f778017fac37.jpg)
+
+
 # The Secret Corey Book Project
 
 ...because I'm too lazy to think of a good name.  Anyway, this is the code behind a probably-soon-to-be-revealed gift for Corey Quinn, Cloud Economist and shitposter extrodinaire, from his friends Kevin Kuchta, Helen Edwards, Mike Julian, and his wife Bethany Quinn (who is presumably also his friend).
