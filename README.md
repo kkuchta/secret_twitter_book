@@ -1,4 +1,5 @@
-![Flj_418aEAE-t2T](https://user-images.githubusercontent.com/820965/227816051-99b7f23a-6f5e-4e2b-89b2-f778017fac37.jpg)
+![Flj_418aEAE-t2T](https://user-images.githubusercontent.com/820965/227816251-a6107583-b1a3-4a58-b7fa-9f3c3965cba2.jpg)
+
 
 
 # The Secret Corey Book Project
