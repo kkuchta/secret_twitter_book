@@ -4,6 +4,8 @@
 
 The project produced a 5-volume leatherbound set of books containing all of Corey's tweets.  The code here is a mess of ruby, html, css, and some shell scripts mostly focused on turning a massive CSV of those tweets into a printable pdf.  This was a one-time project, so the code it's pretty awful.  If you want to attempt to run it, some notes on that are at the end.  But first, the story!
 
+Update: if you'd like to skip to Corey's reaction, [you may do so here](https://twitter.com/QuinnyPig/status/1610317856876683264)!
+
 ## Preamble
 It all started when this tweet came across my timeline in 2021:
 
